@@ -1,4 +1,8 @@
 img="";
+img1="";
+img2="";
+img3="";
+img4="";
 Objects="";
 status="";
 
@@ -10,26 +14,32 @@ function setup(){
 
 function preload(){
     img = loadImage('kitchen.jpeg');
-    img = loadImage('living room.jpeg');
-    img = loadImage('librabry.jpg');
-    img = loadImage('playground.jpeg');
-    img = loadImage('study tablee.jpg');
+    img1 = loadImage('living room.jpeg');
+    img2 = loadImage('librabry.jpg');
+    img3 = loadImage('playground.jpeg');
+    img4 = loadImage('study tablee.jpg');
 
-}
-function draw(){
-    image(img,0,0,640,420);
-   fill("#eb4034");
-   text("dog" , 45,75);
-   noFill();
-   stroke("#eb4034");
-   rect(30,60,450,350);
 }
 
 
 function setup(){
-    canvas = createCanvas(640,420);
-    canvas.center();
+    
     objectDetector = ml5.objectDetector('cocossd', modelLoaded);
     document.getElementById("status").innerHTML = "Status : Detscting Objects ";
 
+}
+
+function  modelLoaded(){
+    console.log("model Loaded");
+    status = true;
+    objectDetector.detect(gotResult);
+
+}
+
+
+function gotResult(error , results) {
+    if (error){
+        console.log(error);
+    }
+    console.log(results);
 }
