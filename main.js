@@ -1,4 +1,7 @@
 img="";
+Objects="";
+status="";
+
 function setup(){
     canvas = createCanvas(640,420);
     canvas.position(300,100);
@@ -6,7 +9,11 @@ function setup(){
 }
 
 function preload(){
-    img = loadImage('dog_cat.jpg');
+    img = loadImage('kitchen.jpeg');
+    img = loadImage('living room.jpeg');
+    img = loadImage('librabry.jpg');
+    img = loadImage('playground.jpeg');
+    img = loadImage('study tablee.jpg');
 
 }
 function draw(){
@@ -16,4 +23,13 @@ function draw(){
    noFill();
    stroke("#eb4034");
    rect(30,60,450,350);
+}
+
+
+function setup(){
+    canvas = createCanvas(640,420);
+    canvas.center();
+    objectDetector = ml5.objectDetector('cocossd', modelLoaded);
+    document.getElementById("status").innerHTML = "Status : Detscting Objects ";
+
 }
