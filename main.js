@@ -3,12 +3,15 @@ img1="";
 img2="";
 img3="";
 img4="";
-Objects="";
-status="";
+Status="";
+objects = [];
+
 
 function setup(){
     canvas = createCanvas(640,420);
     canvas.position(300,100);
+    objectDetector = ml5.objectDetector('cocossd', modelLoaded);
+    document.getElementById("status").innerHTML = "Status : Detecting Objects";
 
 }
 
@@ -20,18 +23,26 @@ function preload(){
     img4 = loadImage('study tablee.jpg');
 
 }
-
-
-function setup(){
-    
-    objectDetector = ml5.objectDetector('cocossd', modelLoaded);
-    document.getElementById("status").innerHTML = "Status : Detscting Objects ";
-
+function draw() {
+    image(img,img1,img2,img3,img4, 0, 0, 640, 420);
+    if (Status != "") {
+        for (i = 0; i < objects.length; i++ ) {
+            fill("#FF0000");
+            document.getElementById("status").innerHTML = "Status : Objects Detected ";
+            percent = floor(objects[i].confidence * 100);
+            text(objects[i].label + " " + percent + "%", objects[i].x, objects[i].y);
+            noFill();
+            stroke("#FF0000");
+            rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+        }
+    }
 }
+
+
 
 function  modelLoaded(){
     console.log("model Loaded");
-    status = true;
+    Status = true;
     objectDetector.detect(gotResult);
 
 }
@@ -42,4 +53,5 @@ function gotResult(error , results) {
         console.log(error);
     }
     console.log(results);
+    objects = results;
 }
