@@ -24,9 +24,12 @@ function preload(){
 
 }
 function draw() {
-    image(img,img1,img2,img3,img4, 0, 0, 640, 420);
+    
     if (Status != "") {
-        for (i = 0; i < objects.length; i++ ) {
+        image(img,img1,img2,img3,img4, 0, 0, 640, 420);
+ for (var i = 0; i < objects.length; i++ )
+  {
+           
             fill("#FF0000");
             document.getElementById("status").innerHTML = "Status : Objects Detected ";
             percent = floor(objects[i].confidence * 100);
